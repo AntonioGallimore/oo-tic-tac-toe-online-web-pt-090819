@@ -1,5 +1,8 @@
+require 'pry'
 class TicTacToe
-   WIN_COMBINATIONS = [
+  attr_reader :board
+  
+  WIN_COMBINATIONS =  [
   [0,1,2],
   [3,4,5],
   [6,7,8],
@@ -8,20 +11,11 @@ class TicTacToe
   [2,5,8],
   [0,4,8],
   [2,4,6]
-  ]
-  
-  def initialize(board = nil)
-    @board = board || Array.new(9, " ")
+]
+  def initialize
+    @board = Array.new(9," ")
   end
- 
-  def current_player
-    turn_count % 2 == 0 ? "X" : "O"
-  end
- 
-  def turn_count
-    @board.count{|token| token == "X" || token == "O"}
-  end
- 
+
   def display_board
     puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "-----------"
@@ -29,49 +23,64 @@ class TicTacToe
     puts "-----------"
     puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
   end
-  
+
   def input_to_index(input)
-    input.to_i - 1 
-  end
-  
-  def move(index, token = "X")
-    @board[index] = token
-  end 
-  
-  def position_taken?(index)
-    #if @board[index] == "X" || @board[index] =="O"
-     #  true 
-     # else 
-     #  false 
-     # end 
-     @board[index] != " "
-  end
-    
-    def valid_move?(index)
-      @board[index] == " "  #index.between?(0,8) && 
-      !position_taken?(index)
-    end 
-    
-  def turn_count
-      counter = 0 
-      @board.each do |el|
-        if el == "X" || el == "O"
-          counter += 1
-  end 
-  counter
+    input.to_i - 1
   end
 
-    def current_player
-      turn_count % == 0 ? "X" : "O"
-    end 
-    
-    def turn
-      puts "Choose a number between 1-9"
-      input = input_to_index(gets.chomp)
-      if valid_move?(index)
+  def move(index, token = "X")
+    @board[index] = token
+  end
+
+  def position_taken?(index)
+    # if @board[index] == "X" || @board[index] == "O"
+    #   true
+    # else 
+    #   false
+    # end
+
+  # if @board[index] != "X"
+    #   true
+    # else
+    #   false
+    # end
+
+    @board[index] != " " 
+  end
+
+  def valid_move?(index)
+     index.between?(0,8) && !position_taken?(index)
+  end
+
+  def turn_count
+    counter = 0
+    @board.each do |el|
+      if el == "X" || el == "O"
+        counter += 1 
+      end
+      # counter += 1 if el != " "
+    end
+    counter
+  end
+
+  def current_player
+    ## if it's an even number on turn count then we return X
+    # turn_count % 2 == 0 ? "X" : "O"
+    if turn_count % 2 == 0
+      "X"
+    else 
+      "O"
+    end
+    # turn_count.even? ? "X" : "O"
+  end
+
+  def turn
+    puts "Choose a number between 1-9"
+    index = input_to_index(gets.chomp)
+     if valid_move?(index)
         move(index, current_player)
         display_board
-      else
-        turn 
-      end 
-    end
+     else
+      turn
+     end
+  end

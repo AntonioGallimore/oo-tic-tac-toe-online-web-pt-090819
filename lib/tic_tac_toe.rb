@@ -52,7 +52,7 @@ class TicTacToe
       !position_taken?(index)
     end 
     
-    def turn_count
+  def turn_count
       counter = 0 
       @board.each do |el|
         if el == "X" || el == "O"

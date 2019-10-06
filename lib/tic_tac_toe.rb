@@ -64,5 +64,14 @@ end
     def current_player
       turn_count % == 0 ? "X" : "O"
     end 
-end
+    def turn
+      puts "Choose a number between 1-9"
+      input = input_to_index(gets.chomp)
+      if valid_move?(index)
+        move(index, current_player)
+        display_board
+      else
+        turn 
+      end 
+    end
 end

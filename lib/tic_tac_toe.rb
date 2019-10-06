@@ -59,11 +59,12 @@ class TicTacToe
           counter += 1
   end 
   counter
-end
+  end
 
     def current_player
       turn_count % == 0 ? "X" : "O"
     end 
+    
     def turn
       puts "Choose a number between 1-9"
       input = input_to_index(gets.chomp)

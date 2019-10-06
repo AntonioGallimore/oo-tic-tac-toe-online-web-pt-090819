@@ -84,3 +84,50 @@ class TicTacToe
       turn
      end
   end
+    def won?
+    winner = nil
+
+    WIN_COMBINATIONS.each do |combo|
+       #this Checks to see if all the indexs are equal to X if so that means this particualr array won.
+      if combo.all? {|win| @board[win] == "X" }
+        winner = combo
+      elsif combo.all? {|win| @board[win] === "O" }
+        winner = combo
+      else 
+      winner
+      end
+    end
+    winner
+  end
+
+  def full?
+    turn_count == 9
+  end
+
+  def draw?
+    full? && !won?
+  end
+
+  def over?
+    won? || draw?
+  end
+
+  def winner
+    # won? ? @board[won?[0]] : nil
+    if player = won?
+      @board[player[0]]
+    end
+  end
+
+  def play
+    turn until over?
+    if winner
+      puts "Congratulations #{winner}!"
+    else
+      puts "Cat's Game!"
+    end
+  end
+
+
+
+end

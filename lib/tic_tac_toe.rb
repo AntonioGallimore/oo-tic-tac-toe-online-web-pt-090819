@@ -51,4 +51,3 @@ class TicTacToe
       !position_taken?(index)
     end 
   end 
-end
